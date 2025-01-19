@@ -31,22 +31,43 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   List<String> todo = ['push code', 'commit code', 'pull code'];
-
+  String inputted = "";
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (var item in todo) Row(children: [Text(item), Icon(Icons.delete)]),
+        for (var item in todo)
+          Row(
+            children: [
+              Text(item),
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  setState(() {
+                    todo.remove(item); // Remove the item from the list
+                  });
+                },
+              ),
+            ],
+          ),
         Text('data2'),
         Column(
           children: [
-            TextField(
-              decoration: InputDecoration(labelText: "enter descrption"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                    labelText: "enter descrption",
+                    border: OutlineInputBorder()),
+                onChanged: (value) => setState(() {
+                  inputted = value;
+                }),
+              ),
             ),
             FloatingActionButton(
               onPressed: () {
                 setState(() {
-                  todo;
+                  todo.add(inputted);
                 });
               },
               child: Icon(Icons.add),
