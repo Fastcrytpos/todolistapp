@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -17,7 +16,10 @@ class HomePage extends StatelessWidget {
         title: Text('My Todo List'),
         centerTitle: true,
       ),
-      body: TodoList(),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: TodoList(),
+      ),
     );
   }
 }
@@ -37,16 +39,22 @@ class _TodoListState extends State<TodoList> {
     return Column(
       children: [
         for (var item in todo)
-          Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(item),
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  setState(() {
-                    todo.remove(item); // Remove the item from the list
-                  });
-                },
+              Row(
+                children: [
+                  Text(item),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        todo.remove(item); // Remove the item from the list
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           ),
